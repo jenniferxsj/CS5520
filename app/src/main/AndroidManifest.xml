@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NUMAD22Sp_ShujunXiao">
         <activity
+            android:name=".ButtonActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
