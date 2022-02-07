@@ -16,14 +16,14 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_button);
 
         textView = findViewById(R.id.textView2);
-
+        //getting all the necessary buttons
         Button buttonA = findViewById(R.id.button_a);
         Button buttonB = findViewById(R.id.button_b);
         Button buttonC = findViewById(R.id.button_c);
         Button buttonD = findViewById(R.id.button_d);
         Button buttonE = findViewById(R.id.button_e);
         Button buttonF = findViewById(R.id.button_f);
-
+        //adding onClick listener to the buttons
         buttonA.setOnClickListener(this);
         buttonB.setOnClickListener(this);
         buttonC.setOnClickListener(this);
