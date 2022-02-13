@@ -1,35 +1,55 @@
 package com.example.numad22sp_shujunxiao;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Random;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button button = findViewById(R.id.button_clicky);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openButtonActivity();
-            }
-        });
+        Button button1 = findViewById(R.id.button_clicky);
+        Button button2 = findViewById(R.id.about_me_button);
+        Button button3 = findViewById(R.id.button_link);
+
+        button1.setOnClickListener(this);
+        button2.setOnClickListener(this);
+        button3.setOnClickListener(this);
     }
 
-    public void showMsg(View view) {
-        Toast.makeText(this, "Name: Shujun Xiao\nEmail: xiao.shu@northeastern.edu", Toast.LENGTH_LONG).show();
-    }
-
-    public void openButtonActivity() {
-        Intent intent = new Intent(this, ButtonActivity.class);
-        startActivity(intent);
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public void onClick(View view) {
+        Intent intent;
+        switch (view.getId()) {
+            case R.id.about_me_button:
+                intent = new Intent(this, AboutMeActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.button_link:
+                intent = new Intent(this, LinkCollectorActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.button_clicky:
+                intent = new Intent(this, ButtonActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }

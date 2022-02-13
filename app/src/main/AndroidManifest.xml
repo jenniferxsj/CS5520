@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NUMAD22Sp_ShujunXiao">
         <activity
+            android:name=".LinkCollectorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AboutMeActivity"
+            android:exported="false" />
+        <activity
             android:name=".ButtonActivity"
             android:exported="false" />
         <activity

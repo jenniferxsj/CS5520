@@ -10,4 +10,13 @@
     <string name="e">E</string>
     <string name="press">Pressed: -</string>
     <string name="pressed">Pressed: </string>
+    <string name="name_shujun_xiao_nemail_xiao_shu_northeastern_edu">Name: Shujun Xiao\nEmail: xiao.shu@northeastern.edu</string>
+    <string name="link_collector">Link Collector</string>
+    <string name="add_link">Add Link</string>
+    <string name="name">name</string>
+    <string name="link">link</string>
+    <string name="checkbox">CheckBox</string>
+    <string name="enter_link">Enter Link</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="add">Add</string>
 </resources>
