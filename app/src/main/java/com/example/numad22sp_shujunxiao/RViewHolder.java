@@ -7,6 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 public class RViewHolder extends RecyclerView.ViewHolder {
     public ImageView img;
     public TextView name;

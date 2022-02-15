@@ -2,6 +2,7 @@ package com.example.numad22sp_shujunxiao;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +37,9 @@ public class RViewAdapter extends RecyclerView.Adapter<RViewHolder> {
         holder.name.setText(currentItem.getName());
         holder.link.setText(currentItem.getLink());
         holder.checkBox.setChecked(currentItem.getStatus());
-
+        //add underline to the link
+        holder.link.setPaintFlags(holder.link.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        //open link
         holder.link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

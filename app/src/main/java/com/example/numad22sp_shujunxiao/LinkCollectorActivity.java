@@ -6,17 +6,16 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
-import android.widget.Toast;
-
+import android.webkit.URLUtil;
+import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
-
 import java.util.ArrayList;
 
 public class LinkCollectorActivity extends AppCompatActivity {
@@ -27,6 +26,8 @@ public class LinkCollectorActivity extends AppCompatActivity {
     private FloatingActionButton addButton;
     private AlertDialog dialog;
     private ConstraintLayout layout;
+    private TextView emptyText;
+    private TextView enterItem;
 
     private static final String KEY_OF_INSTANCE = "KEY_OF_INSTANCE";
     private static final String NUMBER_OF_ITEMS = "NUMBER_OF_ITEMS";
@@ -38,6 +39,9 @@ public class LinkCollectorActivity extends AppCompatActivity {
 
         buildDialog();
         init(savedInstanceState);
+
+        emptyText = findViewById(R.id.text_empty);
+        enterItem = findViewById(R.id.text_add_item);
 
         layout = findViewById(R.id.activity_link);
         addButton = findViewById(R.id.floatingActionButton);
@@ -79,8 +83,15 @@ public class LinkCollectorActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         TextInputLayout inputName = view.findViewById(R.id.input_name);
                         TextInputLayout inputLink = view.findViewById(R.id.input_link);
-                        addCard(inputName.getEditText().getText().toString().trim(), inputLink.getEditText().getText().toString().trim());
-                        showSnackBar("Added successful");
+                        String linkText = inputLink.getEditText().getText().toString().trim();
+                        if(URLUtil.isValidUrl(linkText) && Patterns.WEB_URL.matcher(linkText).matches()) {
+                            addCard(inputName.getEditText().getText().toString().trim(), linkText);
+                            showSnackBar("Added successful");
+                        } else {
+                            showSnackBar("Enter url is invalid, please re-enter");
+                        }
+                        inputName.getEditText().setText("");
+                        inputLink.getEditText().setText("");
                     }
         });
         dialog = builder.create();
@@ -103,8 +114,12 @@ public class LinkCollectorActivity extends AppCompatActivity {
     private void initialItemData(Bundle savedInstanceState) {
         // Not the first time to open this Activity
         if (savedInstanceState != null && savedInstanceState.containsKey(NUMBER_OF_ITEMS)) {
-            if (itemList == null || itemList.size() == 0) {
+            emptyText = findViewById(R.id.text_empty);
+            emptyText.setVisibility(View.INVISIBLE);
+            enterItem = findViewById(R.id.text_add_item);
+            enterItem.setVisibility(View.INVISIBLE);
 
+            if (itemList == null || itemList.size() == 0) {
                 int size = savedInstanceState.getInt(NUMBER_OF_ITEMS);
 
                 // Retrieve keys we stored in the instance
@@ -119,26 +134,16 @@ public class LinkCollectorActivity extends AppCompatActivity {
                         name = name.substring(0, name.lastIndexOf("("));
                     }
                     ItemCard itemCard = new ItemCard(R.drawable.ic_link_foreground, name, list, isChecked);
-
                     itemList.add(itemCard);
                 }
             }
-        }
-        // The first time to open this Activity
-        else {
-            ItemCard item1 = new ItemCard(R.drawable.ic_link_foreground, "Gmail", "http://www.google.com", false);
-            ItemCard item2 = new ItemCard(R.drawable.ic_link_foreground, "Google", "Example description", false);
-            ItemCard item3 = new ItemCard(R.drawable.ic_link_foreground, "Youtube", "Example description", false);
-            itemList.add(item1);
-            itemList.add(item2);
-            itemList.add(item3);
         }
     }
 
     private void createRecycleView() {
         layoutManager = new LinearLayoutManager(this);
         recyclerView = findViewById(R.id.recycler_view);
-        //recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(true);
 
         adapter = new RViewAdapter(LinkCollectorActivity.this, itemList);
 
@@ -159,13 +164,41 @@ public class LinkCollectorActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(itemClickListener);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
+
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                checkEmpty();
+            }
+
+            private void checkEmpty() {
+                if(adapter.getItemCount() == 0) {
+                    emptyText.setVisibility(View.VISIBLE);
+                    enterItem.setVisibility(View.VISIBLE);
+                } else {
+                    emptyText.setVisibility(View.INVISIBLE);
+                    enterItem.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                super.onItemRangeInserted(positionStart, itemCount);
+                checkEmpty();
+            }
+
+            @Override
+            public void onItemRangeRemoved(int positionStart, int itemCount) {
+                super.onItemRangeRemoved(positionStart, itemCount);
+                checkEmpty();
+            }
+        });
     }
 
     // Handling Orientation Changes on Android
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-
-
         int size = itemList == null ? 0 : itemList.size();
         outState.putInt(NUMBER_OF_ITEMS, size);
 
