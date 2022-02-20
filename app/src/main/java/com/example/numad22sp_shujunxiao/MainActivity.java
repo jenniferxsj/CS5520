@@ -27,10 +27,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button button1 = findViewById(R.id.button_clicky);
         Button button2 = findViewById(R.id.about_me_button);
         Button button3 = findViewById(R.id.button_link);
+        Button button4 = findViewById(R.id.button_location);
 
         button1.setOnClickListener(this);
         button2.setOnClickListener(this);
         button3.setOnClickListener(this);
+        button4.setOnClickListener(this);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -48,6 +50,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.button_clicky:
                 intent = new Intent(this, ButtonActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.button_location:
+                intent = new Intent(this, LocationActivity.class);
                 startActivity(intent);
                 break;
         }

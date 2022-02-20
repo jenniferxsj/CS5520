@@ -21,4 +21,7 @@
     <string name="add">Add</string>
     <string name="empty">Empty</string>
     <string name="add_item">Add item with the bottom buttom</string>
+    <string name="location">Location</string>
+    <string name="longtitude">Longtitude</string>
+    <string name="latitude">Latitude</string>
 </resources>
