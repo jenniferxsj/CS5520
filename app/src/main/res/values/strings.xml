@@ -28,4 +28,7 @@
     <string name="ping_web_service">Ping Web Service</string>
     <string name="please_input_a_movie_name">Please Input a Movie Name</string>
     <string name="movie_poster">movie poster</string>
+    <string name="loading">Loading</string>
+    <string name="please_input_year_optional">Please Input Year (optional)</string>
+    <string name="a_default_movie_information">A default movie information will be shown if no movie name or year is detected.</string>
 </resources>

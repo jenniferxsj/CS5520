@@ -92,13 +92,12 @@ public class WebServiceActivity extends AppCompatActivity {
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setDoInput(true); //retrieve from the server
-
                 conn.connect();
-                Log.d(TAG, "connection");
+
                 // Read response.
                 InputStream inputStream = conn.getInputStream();
                 final String resp = convertStreamToString(inputStream);
-                Log.d(TAG, resp);
+                Log.e(TAG, resp);
                 JSONObject jObject = new JSONObject(resp);
                 String jTitle = jObject.getString("Title");
                 String jContent = jObject.getString("Plot");
@@ -166,7 +165,7 @@ public class WebServiceActivity extends AppCompatActivity {
      */
     private String convertStreamToString(InputStream is) {
         Scanner s = new Scanner(is).useDelimiter("\\A");
-        return s.hasNext() ? s.next().replace(",", ",\n") : "";
+        return s.hasNext() ? s.next() : "";
     }
 
     private String convertInput(String s) {
