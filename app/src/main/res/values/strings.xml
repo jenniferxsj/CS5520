@@ -24,4 +24,8 @@
     <string name="location">Location</string>
     <string name="longtitude">Longtitude</string>
     <string name="latitude">Latitude</string>
+    <string name="web_service">Web Service</string>
+    <string name="ping_web_service">Ping Web Service</string>
+    <string name="please_input_a_movie_name">Please Input a Movie Name</string>
+    <string name="movie_poster">movie poster</string>
 </resources>

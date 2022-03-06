@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.numad22sp_shujunxiao">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -12,6 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_sj_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NUMAD22Sp_ShujunXiao">
+        <activity
+            android:name=".WebServiceActivity"
+            android:exported="false" />
         <activity
             android:name=".LocationActivity"
             android:exported="false" />
